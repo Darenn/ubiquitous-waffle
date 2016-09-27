@@ -69,7 +69,24 @@ static void noeud_detruire_recursivement(noeud *n_pt,
  * suppression.
  */
 static void noeud_detruire_simple(noeud *const n_pt,
-                                  void (*detruire)(void **pt)) {}
+                                  void (*detruire)(void **pt)) {
+  assert(detruire != NULL);
+  // Si j'ai un fils droit
+  if ((*n_pt)->fils_droit != NULL) {
+    // Je garde l'adresse de mon fils gauche qui me remplacera dans l'arbre
+    noeud p_fils = (*n_pt)->fils_gauche;
+    // Je me détruis
+    detruire((*n_pt)->val);
+    free((*n_pt));
+    // Je remplace
+    *n_pt = p_fils;
+  } else {
+    // je me détruis
+    detruire((*n_pt)->val);
+    free((*n_pt));
+    // Je remplace par le fils le plus à gauche de mon fils droit
+  }
+}
 
 static void noeud_afficher_prefixe(noeud n, FILE *f,
                                    void (*afficher)(void *val, FILE *f)) {}
