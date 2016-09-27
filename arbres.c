@@ -40,9 +40,29 @@ static noeud noeud_creer(void *val, void (*copier)(void *val, void **pt)) {
   n->fils_droit = n->fils_gauche = NULL;
 }
 
-/* Détruit un noeud et tous les noeuds se trouvant en dessous. */
+/*!
+* \brief Détruit un noeud et tous les noeuds se trouvant en dessous.
+* \param n_pt Un pointeur vers le noeud à détruire.
+* \param detruire Un pointeur vers une fonction pour détruire une valeur.
+*/
 static void noeud_detruire_recursivement(noeud *n_pt,
-                                         void (*detruire)(void **pt)) {}
+                                         void (*detruire)(void **pt)) {
+  assert(detruire != NULL);
+  if (n_pt != NULL && *n_pt != NULL) {
+    // Je détruis d'abord tout les noeuds en dessous
+    if ((*n_pt)->fils_gauche != NULL) {
+      noeud_detruire_recursivement(&((*n_pt)->fils_gauche), detruire);
+    }
+    if ((*n_pt)->fils_droit != NULL) {
+      noeud_detruire_recursivement(&((*n_pt)->fils_droit), detruire);
+    }
+    // Ensuite je me détruis
+    detruire((*n_pt)->val);
+    free(*n_pt);
+    free(n_pt);
+    n_pt = NULL;
+  }
+}
 
 /* Détruit un noeud sans détruire les noeuds se trouvant en dessous.
  * Il faut donc assurer la correcte structure de l'arbre de recherche après
