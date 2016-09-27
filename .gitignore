@@ -1,3 +1,7 @@
+# Personnal binary
+test_arbres_int
+test_arbres_sigle
+
 # Object files
 *.o
 *.ko
