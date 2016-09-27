@@ -1,0 +1,5 @@
+Arbre des sigles
+
+recherche de Le résultat de la suppression
+
+taille = 13 

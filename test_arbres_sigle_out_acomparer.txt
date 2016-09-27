@@ -1,0 +1,31 @@
+Arbre des sigles
+(ABG, Association Bernard Gregory)
+(CFC, Chlorofluorocarbone)
+(CNUED, Conférence des Nations Unies sur l'environnement et le développement)
+(DVD, Digitale Versatile Disc)
+(FEM, Fonds pour l'Environnement Mondial)
+(GES, Gaz à Effet de Serre)
+(LI, Laboratoire d'Informatique de Tours)
+(LIFO, Laboratoire d'Informatique Fondamentale d'Orléans)
+(OAA, Organisation des Nations Unies pour l'alimentation et l'agriculture)
+(ONG, Organisation Non Gouvernementale)
+(OTAN, Organisation du Traité de l'Atlantique Nord)
+(PNUD, Programme des Nations Unies pour le développement)
+(WRI, World Resources Institute)
+
+recherche de (OTAN, )
+Le résultat de la suppression
+(ABG, Association Bernard Gregory)
+(CFC, Chlorofluorocarbone)
+(CNUED, Conférence des Nations Unies sur l'environnement et le développement)
+(DVD, Digitale Versatile Disc)
+(FEM, Fonds pour l'Environnement Mondial)
+(GES, Gaz à Effet de Serre)
+(LI, Laboratoire d'Informatique de Tours)
+(LIFO, Laboratoire d'Informatique Fondamentale d'Orléans)
+(OAA, Organisation des Nations Unies pour l'alimentation et l'agriculture)
+(ONG, Organisation Non Gouvernementale)
+(PNUD, Programme des Nations Unies pour le développement)
+(WRI, World Resources Institute)
+
+taille = 12 

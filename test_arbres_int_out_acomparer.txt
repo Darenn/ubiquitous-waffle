@@ -1,0 +1,19 @@
+valeur insérée : 18 
+valeur insérée : 8 
+valeur insérée : 2 
+valeur insérée : 41 
+valeur insérée : 35 
+valeur insérée : 25 
+valeur insérée : 4 
+valeur insérée : 8 
+valeur insérée : 6 
+valeur insérée : 37 
+Arbre binaire de recherche : 2 4 6 8 18 25 35 37 41 
+recherche de 25 dans abr : Trouvé
+valeur à supprimer : 35 
+valeur à supprimer : 2 
+valeur à supprimer : 2 
+valeur à supprimer : 41 
+valeur à supprimer : 8 
+Résultat après la suppression : 4 6 18 25 37 
+sa taille : 5 
