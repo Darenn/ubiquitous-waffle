@@ -71,7 +71,8 @@ static void noeud_detruire_recursivement(noeud *n_pt,
 static void noeud_detruire_simple(noeud *const n_pt,
                                   void (*detruire)(void **pt)) {
   assert(detruire != NULL);
-  if (n_pt != NULL) {
+  assert(n_pt != NULL);
+  if (*n_pt != NULL) {
     // Si j'ai pas de fils droit
     if ((*n_pt)->fils_droit == NULL) {
       // Je garde l'adresse de mon fils gauche qui me remplacera dans l'arbre
@@ -177,8 +178,8 @@ static noeud *arbre_chercher_position(arbre a, void *val) {
   assert(a != NULL);
   assert(val != NULL);
   noeud *resultat = NULL;
+  noeud *courant = &a->racine;
   if (!arbre_est_vide(a)) {
-    noeud *courant = &a->racine;
     while (resultat == NULL && *courant != NULL) {
       int comp = a->comparer((*courant)->val, val);
       if (comp > 0) {
@@ -190,57 +191,17 @@ static noeud *arbre_chercher_position(arbre a, void *val) {
       }
     }
   }
-  return resultat;
+  if (*courant == NULL) {
+    return courant;
+  } else {
+    return resultat;
+  }
 }
 
 void arbre_insertion(arbre a, void *val) {
-  assert(a != NULL);
-  assert(val != NULL);
-  noeud nouveau = noeud_creer(val, a->copier);
-  if (arbre_est_vide(a)) {
-    a->racine = nouveau;
-  } else {
-    bool nok = true;
-    noeud courant = a->racine;
-    // On regarde pour chaque noeud si un des ces enfants peut être remplacé par
-    // nouveau
-    while (nok) {
-      int comp = a->comparer(courant->val, val);
-      // Si je suis supérieur au nouveau
-      if (comp > 0) {
-        // Si j'ai un fils gauche
-        if (courant->fils_gauche != NULL) {
-          // Si mon fils gauche est inférieur au nouveau
-          if (a->comparer(courant->fils_gauche->val, val) < 0) {
-            // Mon fils gauche devient le fils gauche du nouveau
-            // Le nouveau devient mon fils gauche,
-            nok = false;
-            nouveau->fils_gauche = courant->fils_gauche;
-            courant->fils_gauche = nouveau;
-          }
-        } else { // Si je n'ai pas de fils gauche, nouveau le devient
-          nok = false;
-          courant->fils_gauche = nouveau;
-        }
-        courant = courant->fils_gauche;
-      } else if (comp < 0) { // Sinon si je suis inférieur à la valeur
-        // Je fais la même chose avec le fils droit.
-        if (courant->fils_droit != NULL) {
-          if (a->comparer(courant->fils_droit->val, val) > 0) {
-            nok = false;
-            nouveau->fils_droit = courant->fils_droit;
-            courant->fils_droit = nouveau;
-          }
-        } else {
-          nok = false;
-          courant->fils_droit = nouveau;
-        }
-        courant = courant->fils_droit;
-      } else {
-        nok = false;
-        noeud_detruire_recursivement(&nouveau, a->detruire);
-      }
-    }
+  noeud *position = arbre_chercher_position(a, val);
+  if (*position == NULL) {
+    *position = noeud_creer(val, a->copier);
   }
 }
 
@@ -282,7 +243,7 @@ void *arbre_rechercher(arbre a, void *val) {
   assert(a != NULL);
   assert(val != NULL);
   noeud *n = arbre_chercher_position(a, val);
-  if (n != NULL) {
+  if (*n != NULL) {
     return (*n)->val;
   }
   return NULL;
