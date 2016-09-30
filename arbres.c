@@ -199,6 +199,7 @@ static noeud *arbre_chercher_position(arbre a, void *val) {
 }
 
 void arbre_insertion(arbre a, void *val) {
+  assert(val != NULL);
   noeud *position = arbre_chercher_position(a, val);
   if (*position == NULL) {
     *position = noeud_creer(val, a->copier);

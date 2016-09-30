@@ -56,6 +56,7 @@ void arbre_detruire(arbre *a);
  * Cette fonction permet de savoir si un arbre est vide (ne contient aucune
  * valeur) ou non.
  * \param a arbre à tester
+ * \pre l'arbre doit être défini
  * \return vrai ssi l'arbre ne contient pas de valeur.
  */
 bool arbre_est_vide(arbre a);
@@ -65,7 +66,7 @@ bool arbre_est_vide(arbre a);
  * recherche.
  * Si val est déjà présent dans l'arbre on ne l'insère pas une deuxième fois.
  * \param
- * \pre ¿ à compléter ?
+ * \pre la valeur a inserer doit être définie
  */
 void arbre_insertion(arbre a, void *val);
 
@@ -74,6 +75,7 @@ void arbre_insertion(arbre a, void *val);
  * selon un parcours postfixe.
  * \param f flux où afficher
  * \param afficher fonction pour afficher une valeur.
+ * \pre l'arbre et le fichier de sortie doivent être définis
  */
 void arbre_afficher_postfixe(arbre a, FILE *f,
                              void (*afficher)(void *val, FILE *f));
@@ -83,6 +85,7 @@ void arbre_afficher_postfixe(arbre a, FILE *f,
  * selon un parcours prefixe.
  * \param f flux où afficher
  * \param afficher fonction pour afficher une valeur.
+ * \pre l'arbre et le fichier de sortie doivent être définis
  */
 void arbre_afficher_prefixe(arbre a, FILE *f,
                             void (*afficher)(void *val, FILE *f));
@@ -92,6 +95,7 @@ void arbre_afficher_prefixe(arbre a, FILE *f,
  * selon un parcours infixe.
  * \param f flux où afficher
  * \param afficher fonction pour afficher une valeur.
+ * \pre l'arbre et le fichier de sortie doivent être définis
  */
 void arbre_afficher_infixe(arbre a, FILE *f,
                            void (*afficher)(void *val, FILE *f));
@@ -100,6 +104,7 @@ void arbre_afficher_infixe(arbre a, FILE *f,
  * Cette fonction permet de connaître le nombre de valeurs dans l'arbre.
  * (cela se fait par un calcul récursif.)
  * \return le nombre de noeuds qui compose l'arbre.
+ * \pre l'arbre doit être défini
  */
 int arbre_taille(arbre a);
 
@@ -107,6 +112,7 @@ int arbre_taille(arbre a);
  * Cette fonction permet de suppression une val dans l'arbre.
  * \param a arbre à modifier
  * \param val valeur à supprimer
+ * \pre l'arbre et la valeur doivent être définies
  */
 
 void arbre_supprimer(arbre a, void *val);
@@ -117,6 +123,7 @@ void arbre_supprimer(arbre a, void *val);
  * Aucune copie n'est faite.
  * \param a arbre où chercher
  * \param val valeur à chercher
+ * \pre l'arbre et la valeur doivent être définies
  * \return val dans l'arbre, NULL si non présent.
  */
 void *arbre_rechercher(arbre a, void *val);
