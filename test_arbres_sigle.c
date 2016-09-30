@@ -20,6 +20,11 @@ struct sigle_struct {
   char *details; /* la description du sigle */
 };
 
+/* retourne une copie.
+ * La mémoire nécessaire a été allouée.
+*/
+char *string_produce_copy(char const *const st) { return NULL; }
+
 /* Les trois fonctions suivantes manipulent la structure directement */
 
 /* Création d'un struct sigle à partir de 2 chaînes de caractères*/
@@ -117,7 +122,6 @@ int main(void) {
   fprintf(f_out, "taille = %d \n", taille);
 
   sigle_detruire(&ref);
-  // sigle_detruire(&res); // TODO Dire au prof pour l'erreur
 
   arbre_detruire(&abr);
 
