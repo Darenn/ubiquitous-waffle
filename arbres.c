@@ -18,6 +18,12 @@ struct noeud_struct {
   noeud fils_droit;
 };
 
+/*!
+* Cette struct représente un arbre binaire.
+* Elle contient une racine (le premier noeud), un pointeur vers une fonction de
+* copie de la valeur, un pointeur vers une fonction de destruction de la valeur,
+* et un pointeur vers une fonction de comparaison de la valeur
+*/
 struct arbre_struct {
   noeud racine;
   void (*copier)(void *val, void **pt);
@@ -30,6 +36,7 @@ struct arbre_struct {
 * \param val Un pointeur vers la valeur à copier dans le noeud.
 * \param copier Un pointeur vers une fonction pour copier une valeur, un
 * pointeur est indiquer pour la relier
+* \pre val et copier doivent être définis
 * \return Un noeud sans enfant et avec pour valeur val.
 */
 static noeud noeud_creer(void *val, void (*copier)(void *val, void **pt)) {
@@ -45,6 +52,7 @@ static noeud noeud_creer(void *val, void (*copier)(void *val, void **pt)) {
 * \brief Détruit un noeud et tous les noeuds se trouvant en dessous.
 * \param n_pt Un pointeur vers le noeud à détruire.
 * \param detruire Un pointeur vers une fonction pour détruire une valeur.
+* \pre detruire doit être défini.
 */
 static void noeud_detruire_recursivement(noeud *n_pt,
                                          void (*detruire)(void **pt)) {
@@ -64,9 +72,14 @@ static void noeud_detruire_recursivement(noeud *n_pt,
   }
 }
 
-/* Détruit un noeud sans détruire les noeuds se trouvant en dessous.
+/*
+ * \brief Détruit un noeud sans détruire les noeuds se trouvant en dessous.
  * Il faut donc assurer la correcte structure de l'arbre de recherche après
  * suppression.
+ * \param n_pt Un pointeur vers le noeud à détruire. (le pointeur ne sera pas
+ * changé)
+ * \param detruire Un pointeur vers une fonction pour détruire une valeur.
+ * \pre detruire et n_pt doivent être définis.
  */
 static void noeud_detruire_simple(noeud *const n_pt,
                                   void (*detruire)(void **pt)) {
@@ -108,6 +121,13 @@ static void noeud_detruire_simple(noeud *const n_pt,
   }
 }
 
+/*!
+ * \brief Affiche le sous-arbre ayant pour racine le noeud n de manière prefixe.
+ * \param n Le noeud à afficher.
+ * \param f Le fichier de sortie.
+ * \param afficher Un pointeur vers une fonction pour afficher la valeur.
+ * \pre f et afficher doivent être définis.
+ */
 static void noeud_afficher_prefixe(noeud n, FILE *f,
                                    void (*afficher)(void *val, FILE *f)) {
   assert(f != NULL);
@@ -119,6 +139,13 @@ static void noeud_afficher_prefixe(noeud n, FILE *f,
   }
 }
 
+/*!
+ * \brief Affiche le sous-arbre ayant pour racine le noeud n de manière infixe.
+ * \param n Le noeud à afficher.
+ * \param f Le fichier de sortie.
+ * \param afficher Un pointeur vers une fonction pour afficher la valeur.
+ * \pre f et afficher doivent être définis.
+ */
 static void noeud_afficher_infixe(noeud n, FILE *f,
                                   void (*afficher)(void *val, FILE *f)) {
   assert(f != NULL);
@@ -130,6 +157,13 @@ static void noeud_afficher_infixe(noeud n, FILE *f,
   }
 }
 
+/*!
+ * \brief Affiche le sous-arbre ayant pour racine le noeud n de manière postfixe
+ * \param n Le noeud à afficher.
+ * \param f Le fichier de sortie.
+ * \param afficher Un pointeur vers une fonction pour afficher la valeur.
+ * \pre f et afficher doivent être définis.
+ */
 static void noeud_afficher_postfixe(noeud n, FILE *f,
                                     void (*afficher)(void *val, FILE *f)) {
   assert(f != NULL);
@@ -141,6 +175,11 @@ static void noeud_afficher_postfixe(noeud n, FILE *f,
   }
 }
 
+/*!
+ * \brief Renvoie la taille du sous-arbre ayant le noeud n pour racine.
+ * \param n Le noeud racine.
+ * \return La taille du sous-arbre ayant le noeud n pour racine.
+ */
 int noeud_taille(noeud n) {
   if (n != NULL) {
     return noeud_taille(n->fils_gauche) + noeud_taille(n->fils_droit) + 1;

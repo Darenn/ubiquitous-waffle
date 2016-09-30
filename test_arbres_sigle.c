@@ -20,27 +20,30 @@ struct sigle_struct {
   char *details; /* la description du sigle */
 };
 
-/* retourne une copie.
+/*
+ * \brief Retourne une copie.
  * La mémoire nécessaire a été allouée.
 */
-char *string_produce_copy(char const *const st) { return NULL; }
+static char *string_produce_copy(char const *const st) {
+  char *copy = (char *)malloc(sizeof(char) * strlen(st) + 1);
+  strcpy(copy, st);
+  return copy;
+}
 
 /* Les trois fonctions suivantes manipulent la structure directement */
 
 /* Création d'un struct sigle à partir de 2 chaînes de caractères*/
-sigle sigle_creer(char *court, char *details) {
+static sigle sigle_creer(char *court, char *details) {
   assert(court != NULL);
   assert(details != NULL);
   sigle s = (sigle)malloc(sizeof(struct sigle_struct));
-  s->court = (char *)malloc(sizeof(char) * strlen(court) + 1);
-  strcpy(s->court, court);
-  s->details = (char *)malloc(sizeof(char) * strlen(details) + 1);
-  strcpy(s->details, details);
+  s->court = string_produce_copy(court);
+  s->details = string_produce_copy(details);
   return s;
 }
 
 /* Destruction d'un sigle */
-void sigle_detruire(sigle *s) {
+static void sigle_detruire(sigle *s) {
   assert(s != NULL);
   if (*s != NULL) {
     free((*s)->court);
@@ -52,20 +55,20 @@ void sigle_detruire(sigle *s) {
 
 /* Pour l'arbre les fonctions copier - afficher - detruire */
 /* Attention à la signature */
-void copier_sigle(void *val, void **pt) {
+static void copier_sigle(void *val, void **pt) {
   assert(NULL != val);
   assert(NULL != pt);
   *pt = sigle_creer(((sigle)val)->court, ((sigle)val)->details);
   assert(NULL != *pt);
 }
 
-void sigle_afficher(void *val, FILE *f) {
+static void sigle_afficher(void *val, FILE *f) {
   assert(val != NULL);
   assert(f != NULL);
   fprintf(f, "(%s, %s)\n", ((sigle)val)->court, ((sigle)val)->details);
 }
 
-void detruire_sigle(void **pt) {
+static void detruire_sigle(void **pt) {
   assert(NULL != pt);
   if (*pt != NULL) {
     sigle_detruire((sigle *)pt);
@@ -76,7 +79,7 @@ void detruire_sigle(void **pt) {
 /* la fonction de comparaison qui définit l'ordre lexicographique */
 /* sur le sigle ( le champs court de la structure ) */
 
-int sigle_comparer(void *val1, void *val2) {
+static int sigle_comparer(void *val1, void *val2) {
   assert(val1 != NULL);
   assert(val2 != NULL);
   return strcmp(((sigle)val1)->court, ((sigle)val2)->court);
